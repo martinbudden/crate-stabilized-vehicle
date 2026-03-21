@@ -307,7 +307,7 @@ dependencies = [
 [[package]]
 name = "filters"
 version = "0.1.0"
-source = "git+https://github.com/martinbudden/Crate-filters#233f5bc0616a0c82cf53d268cbc286f0a939ac8d"
+source = "git+https://github.com/martinbudden/Crate-filters#671e36d348cd042dae448ec408f0bdd3424a239f"
 dependencies = [
  "num-traits",
  "vector-quaternion-matrix",
@@ -464,7 +464,7 @@ checksum = "f8ca58f447f06ed17d5fc4043ce1b10dd205e060fb3ce5b979b8ed8e59ff3f79"
 [[package]]
 name = "motor-mixers"
 version = "0.1.0"
-source = "git+https://github.com/martinbudden/Crate-motor_mixers#e3d4076a37e9964d8d6cd664216e4c8ad4886743"
+source = "git+https://github.com/martinbudden/Crate-motor_mixers#969b2e63a636590627df0a1974cf3bae12ae714f"
 dependencies = [
  "cfg-if",
  "defmt",
@@ -642,7 +642,7 @@ checksum = "388a1df253eca08550bef6c72392cfe7c30914bf41df5269b68cbd6ff8f570a3"
 [[package]]
 name = "sensor-fusion"
 version = "0.1.0"
-source = "git+https://github.com/martinbudden/Crate-sensor_fusion#e01051db99e7d1b24d27428791c4bdcb95775d93"
+source = "git+https://github.com/martinbudden/Crate-sensor_fusion#d9b26348960f742c5505f0699865a38060fe08e8"
 dependencies = [
  "imu-sensors",
  "num-traits",
@@ -836,7 +836,7 @@ checksum = "77439c1b53d2303b20d9459b1ade71a83c716e3f9c34f3228c00e6f185d6c002"
 [[package]]
 name = "vector-quaternion-matrix"
 version = "0.1.0"
-source = "git+https://github.com/martinbudden/Crate-vector_quaternion_matrix#3509c30930cbee56d264096fc27638657781c861"
+source = "git+https://github.com/martinbudden/Crate-vector_quaternion_matrix#b2e529a4d2cda1c99b3108f5ea1f2737abe13624"
 dependencies = [
  "bytemuck",
  "libm",
