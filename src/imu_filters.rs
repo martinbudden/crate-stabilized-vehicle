@@ -1,10 +1,10 @@
 use cfg_if::cfg_if;
-use filters::{BiquadFilter, FilterPt1};
+use filters::{BiquadFilterf32, FilterPt1f32};
 use imu_sensors::ImuReadingf32;
 use vector_quaternion_matrix::Vector3df32;
 
 #[cfg(feature = "use_rpm_filters")]
-use motor_mixers::{RpmFilters, RpmFiltersState};
+use motor_mixers::RpmFiltersState;
 
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct ImuFiltersConfig {
@@ -41,11 +41,11 @@ impl Default for ImuFiltersConfig {
 pub struct ImuFiltersState {
     motor_count: usize,
     config: ImuFiltersConfig,
-    acc_lpf: FilterPt1<Vector3df32>,
-    gyro_lpf1: FilterPt1<Vector3df32>,
-    gyro_lpf2: FilterPt1<Vector3df32>,
-    gyro_notch1: BiquadFilter<Vector3df32>,
-    gyro_notch2: BiquadFilter<Vector3df32>,
+    acc_lpf: FilterPt1f32<Vector3df32>,
+    gyro_lpf1: FilterPt1f32<Vector3df32>,
+    gyro_lpf2: FilterPt1f32<Vector3df32>,
+    gyro_notch1: BiquadFilterf32<Vector3df32>,
+    gyro_notch2: BiquadFilterf32<Vector3df32>,
     #[cfg(feature = "use_rpm_filters")]
     rpm_filters: RpmFiltersState,
 }
@@ -55,11 +55,11 @@ impl ImuFiltersState {
         Self {
             motor_count: 4,
             config: ImuFiltersConfig::default(),
-            acc_lpf: FilterPt1::default(),
-            gyro_lpf1: FilterPt1::default(),
-            gyro_lpf2: FilterPt1::default(),
-            gyro_notch1: BiquadFilter::default(),
-            gyro_notch2: BiquadFilter::default(),
+            acc_lpf: FilterPt1f32::default(),
+            gyro_lpf1: FilterPt1f32::default(),
+            gyro_lpf2: FilterPt1f32::default(),
+            gyro_notch1: BiquadFilterf32::default(),
+            gyro_notch2: BiquadFilterf32::default(),
             #[cfg(feature = "use_rpm_filters")]
             rpm_filters: RpmFiltersState::default(),
         }
