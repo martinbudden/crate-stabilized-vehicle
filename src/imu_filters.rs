@@ -1,6 +1,7 @@
 use cfg_if::cfg_if;
 use filters::{BiquadFilterf32, FilterSignal, Pt1Filterf32};
 use imu_sensors::ImuReadingf32;
+use motor_mixers::RpmFilters;
 use vector_quaternion_matrix::Vector3df32;
 
 #[cfg(feature = "use_rpm_filters")]
@@ -120,7 +121,7 @@ impl FilterImuReading for ImuFilterBank {
         cfg_if! {
             if #[cfg(feature = "use_rpm_filters")] {
             for ii in 0..self.state().motor_count {
-                imu_reading.gyro_rps = self.state_mut().rpm_filters.filter(imu_reading.gyro_rps,ii);
+                imu_reading.gyro_rps = self.state_mut().rpm_filters.apply_notch_filters(imu_reading.gyro_rps,ii);
             }
             }
         }

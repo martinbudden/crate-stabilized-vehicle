@@ -1,8 +1,8 @@
-#![allow(unused)]
-use crate::{FilterImuReading, ImuFilterBank, VehicleControl, VehicleController};
-use imu_sensors::ImuReadingf32;
+//#![allow(unused)]
+use crate::{FilterImuReading, ImuFilterBank, VehicleController};
+use imu_sensors::{ImuReading, ImuReadingf32};
 use sensor_fusion::SensorFusion;
-use vector_quaternion_matrix::{Quaternionf32, Vector3df32};
+use vector_quaternion_matrix::{Quaternion, Quaternionf32, Vector3df32};
 
 #[cfg(feature = "use_complementary_filter")]
 use sensor_fusion::ComplementaryFilterf32;
@@ -85,6 +85,19 @@ impl Default for AhrsState {
     }
 }
 
+pub trait FuseImuReading<T> {
+    fn fuse_acc_gyro_using<F: SensorFusion<T>>(self, filter: &mut F, delta_t: T) -> Quaternion<T>;
+}
+
+impl<T> FuseImuReading<T> for ImuReading<T> {
+    fn fuse_acc_gyro_using<F: SensorFusion<T>>(self, filter: &mut F, delta_t: T) -> Quaternion<T> {
+        let imu_reading = self;
+        filter.fuse_acc_gyro(imu_reading.acc, imu_reading.gyro_rps, delta_t)
+    }
+}
+
+//         //self.ahrs_data.imu_reading.filter_using(self.imu_filters, self.ahrs_data.delta_t);
+
 impl Ahrs for AhrsState {
     fn state(&self) -> &AhrsState {
         self
@@ -109,8 +122,16 @@ impl Ahrs for AhrsState {
         self.ahrs_data.gyro_rps_unfiltered = self.ahrs_data.imu_reading.gyro_rps; // unfiltered value saved for blackbox recording
         self.ahrs_data.imu_reading = self.imu_filters.apply(self.ahrs_data.imu_reading, self.ahrs_data.delta_t); // 15us, 207us
 
+        //self.ahrs_data.imu_reading.filter_using(self.imu_filters, self.imu_filters, self.ahrs_data.delta_t);
+
+        /*self.ahrs_data.orientation = self.sensor_fusion_filter.fuse_acc_gyro(
+            self.ahrs_data.imu_reading.acc,
+            self.ahrs_data.imu_reading.gyro_rps,
+            self.ahrs_data.delta_t,
+        ); // 15us, 140us*/
+
         self.ahrs_data.orientation =
-            self.sensor_fusion_filter.update_orientation(self.ahrs_data.imu_reading, self.ahrs_data.delta_t); // 15us, 140us
+            self.ahrs_data.imu_reading.fuse_acc_gyro_using(&mut self.sensor_fusion_filter, self.ahrs_data.delta_t);
 
         /*if (self.sensor_fusion_filter_is_initializing) {
             if (self.fusion_filter_has_converged(self.ahrs_data.imu_reading.acc, self.ahrs_data.orientation)) {
