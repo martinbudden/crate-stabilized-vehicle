@@ -1,5 +1,7 @@
 use cfg_if::cfg_if;
-use filters::{BiquadFilterf32, FilterSignal, Pt1Filterf32};
+use serde::{Deserialize, Serialize};
+
+use filters::{BiquadFilterf32, Pt1Filterf32, SignalFilter};
 use imu_sensors::ImuReadingf32;
 use motor_mixers::RpmFilters;
 use vector_quaternion_matrix::Vector3df32;
@@ -7,7 +9,7 @@ use vector_quaternion_matrix::Vector3df32;
 #[cfg(feature = "use_rpm_filters")]
 use motor_mixers::RpmFilterBank;
 
-#[derive(Clone, Copy, Debug, PartialEq)]
+#[derive(Clone, Copy, Debug, PartialEq, Deserialize, Serialize)]
 pub struct ImuFilterBankConfig {
     pub acc_lpf_hz: u16,
     pub gyro_lpf1_hz: u16,
@@ -102,19 +104,19 @@ impl FilterImuReading for ImuFilterBank {
 
     fn apply(&mut self, mut imu_reading: ImuReadingf32, _delta_t: f32) -> ImuReadingf32 {
         if self.config().acc_lpf_hz != 0 {
-            imu_reading.acc = self.state_mut().acc_lpf.apply(imu_reading.acc);
+            imu_reading.acc = self.state_mut().acc_lpf.update(imu_reading.acc);
         }
         if self.config().gyro_lpf1_hz != 0 {
-            imu_reading.gyro_rps = self.state_mut().gyro_lpf1.apply(imu_reading.gyro_rps);
+            imu_reading.gyro_rps = self.state_mut().gyro_lpf1.update(imu_reading.gyro_rps);
         }
         if self.config().gyro_lpf2_hz != 0 {
-            imu_reading.gyro_rps = self.state_mut().gyro_lpf2.apply(imu_reading.gyro_rps);
+            imu_reading.gyro_rps = self.state_mut().gyro_lpf2.update(imu_reading.gyro_rps);
         }
         if self.config().gyro_notch1_hz != 0 {
-            imu_reading.gyro_rps = self.state_mut().gyro_notch1.apply(imu_reading.gyro_rps);
+            imu_reading.gyro_rps = self.state_mut().gyro_notch1.update(imu_reading.gyro_rps);
         }
         if self.config().gyro_notch2_hz != 0 {
-            imu_reading.gyro_rps = self.state_mut().gyro_notch2.apply(imu_reading.gyro_rps);
+            imu_reading.gyro_rps = self.state_mut().gyro_notch2.update(imu_reading.gyro_rps);
         }
         #[cfg(feature = "use_rpm_filters")]
 
@@ -136,10 +138,14 @@ mod tests {
 
     fn _is_normal<T: Sized + Send + Sync + Unpin>() {}
     fn is_full<T: Sized + Send + Sync + Unpin + Copy + Clone + Default + PartialEq>() {}
+    fn is_config<
+        T: Sized + Send + Sync + Unpin + Copy + Clone + Default + PartialEq + Serialize + for<'a> Deserialize<'a>,
+    >() {
+    }
 
     #[test]
     fn normal_types() {
-        is_full::<ImuFilterBankConfig>();
+        is_config::<ImuFilterBankConfig>();
         is_full::<ImuFilterBank>();
     }
     #[test]
