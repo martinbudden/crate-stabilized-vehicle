@@ -804,7 +804,7 @@ checksum = "b9e0384b61958566e926dc50660321d12159025e767c18e043daf26b70104c39"
 [[package]]
 name = "imu-sensors"
 version = "0.1.0"
-source = "git+https://github.com/martinbudden/Crate-imu_sensors#e0667eed97ac4177dab18aa9a3e4afa503ad4f1e"
+source = "git+https://github.com/martinbudden/Crate-imu_sensors#5cf4566a708f89fd1139c1b963943f0edebd1c79"
 dependencies = [
  "cfg-if",
  "defmt",
