@@ -1,10 +1,9 @@
 use cfg_if::cfg_if;
 use serde::{Deserialize, Serialize};
 
-use filters::{BiquadFilterf32, Pt1Filterf32, SignalFilter};
+use filters::{BiquadFilterVector3df32, Pt1FilterVector3df32, SignalFilter};
 use imu_sensors::ImuReadingf32;
 use motor_mixers::RpmFilters;
-use vector_quaternion_matrix::Vector3df32;
 
 #[cfg(feature = "use_rpm_filters")]
 use motor_mixers::RpmFilterBank;
@@ -44,11 +43,11 @@ impl Default for ImuFilterBankConfig {
 pub struct ImuFilterBank {
     motor_count: usize,
     config: ImuFilterBankConfig,
-    acc_lpf: Pt1Filterf32<Vector3df32>,
-    gyro_lpf1: Pt1Filterf32<Vector3df32>,
-    gyro_lpf2: Pt1Filterf32<Vector3df32>,
-    gyro_notch1: BiquadFilterf32<Vector3df32>,
-    gyro_notch2: BiquadFilterf32<Vector3df32>,
+    acc_lpf: Pt1FilterVector3df32,
+    gyro_lpf1: Pt1FilterVector3df32,
+    gyro_lpf2: Pt1FilterVector3df32,
+    gyro_notch1: BiquadFilterVector3df32,
+    gyro_notch2: BiquadFilterVector3df32,
     #[cfg(feature = "use_rpm_filters")]
     rpm_filters: RpmFilterBank,
 }
@@ -64,11 +63,11 @@ impl ImuFilterBank {
         Self {
             motor_count: 4,
             config: ImuFilterBankConfig::default(),
-            acc_lpf: Pt1Filterf32::default(),
-            gyro_lpf1: Pt1Filterf32::default(),
-            gyro_lpf2: Pt1Filterf32::default(),
-            gyro_notch1: BiquadFilterf32::default(),
-            gyro_notch2: BiquadFilterf32::default(),
+            acc_lpf: Pt1FilterVector3df32::default(),
+            gyro_lpf1: Pt1FilterVector3df32::default(),
+            gyro_lpf2: Pt1FilterVector3df32::default(),
+            gyro_notch1: BiquadFilterVector3df32::default(),
+            gyro_notch2: BiquadFilterVector3df32::default(),
             #[cfg(feature = "use_rpm_filters")]
             rpm_filters: RpmFilterBank::default(),
         }
