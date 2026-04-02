@@ -647,7 +647,7 @@ checksum = "877a4ace8713b0bcf2a4e7eec82529c029f1d0619886d18145fea96c3ffe5c0f"
 [[package]]
 name = "filters"
 version = "0.1.0"
-source = "git+https://github.com/martinbudden/Crate-filters#28b5e90abd192f7667d02c53da8710c3d50e115c"
+source = "git+https://github.com/martinbudden/Crate-filters#1314ce6b29660f421e5dfa87136cc53010c654c6"
 dependencies = [
  "num-traits",
  "vector-quaternion-matrix",
@@ -804,7 +804,7 @@ checksum = "b9e0384b61958566e926dc50660321d12159025e767c18e043daf26b70104c39"
 [[package]]
 name = "imu-sensors"
 version = "0.1.0"
-source = "git+https://github.com/martinbudden/Crate-imu_sensors#5cf4566a708f89fd1139c1b963943f0edebd1c79"
+source = "git+https://github.com/martinbudden/Crate-imu_sensors#a7e209a495708bd282edf9599cc7ae42564201e9"
 dependencies = [
  "cfg-if",
  "defmt",
@@ -956,7 +956,7 @@ checksum = "f8ca58f447f06ed17d5fc4043ce1b10dd205e060fb3ce5b979b8ed8e59ff3f79"
 [[package]]
 name = "motor-mixers"
 version = "0.1.0"
-source = "git+https://github.com/martinbudden/Crate-motor_mixers#11bdc7fce941faad92071f82cb97943bd985692f"
+source = "git+https://github.com/martinbudden/Crate-motor_mixers#aa0a2a3717092f6046de7f3f800219c6a3b03340"
 dependencies = [
  "cfg-if",
  "defmt",
@@ -1112,7 +1112,7 @@ checksum = "5be167a7af36ee22fe3115051bc51f6e6c7054c9348e28deb4f49bd6f705a315"
 [[package]]
 name = "pid-controller"
 version = "0.1.0"
-source = "git+https://github.com/martinbudden/Crate-pid_controller#adf26d3f4ae7224b64abe4f277ce16c3f1ddf850"
+source = "git+https://github.com/martinbudden/Crate-pid_controller#a3211e229f813c6a92ab79852a57a3ce7b213da1"
 dependencies = [
  "num-traits",
 ]
@@ -1391,8 +1391,9 @@ checksum = "388a1df253eca08550bef6c72392cfe7c30914bf41df5269b68cbd6ff8f570a3"
 [[package]]
 name = "sensor-fusion"
 version = "0.1.0"
-source = "git+https://github.com/martinbudden/Crate-sensor_fusion#961ae92ce5f12a64fdedf84e728d1d202ede547d"
+source = "git+https://github.com/martinbudden/Crate-sensor_fusion#04aaea74ecf3c8a5e90facbffeb60a951347a839"
 dependencies = [
+ "cfg-if",
  "imu-sensors",
  "num-traits",
  "vector-quaternion-matrix",
@@ -1745,7 +1746,7 @@ checksum = "77439c1b53d2303b20d9459b1ade71a83c716e3f9c34f3228c00e6f185d6c002"
 [[package]]
 name = "vector-quaternion-matrix"
 version = "0.1.0"
-source = "git+https://github.com/martinbudden/Crate-vector_quaternion_matrix#324c556dc329b9bc2164dd9471dd80c860c9294a"
+source = "git+https://github.com/martinbudden/Crate-vector_quaternion_matrix#12442e58d095952e84a62c79d41cba7f5900c10b"
 dependencies = [
  "approx",
  "bytemuck",
