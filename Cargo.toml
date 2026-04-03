@@ -22,12 +22,12 @@ use_rpm_filters = []
 num-traits = "0.2.19"
 cfg-if = "1.0"
 
-vector-quaternion-matrix = { git = "https://github.com/martinbudden/Crate-vector_quaternion_matrix" }
-imu-sensors = { git = "https://github.com/martinbudden/Crate-imu_sensors" }
-sensor-fusion = { git = "https://github.com/martinbudden/Crate-sensor_fusion" }
-filters = { git = "https://github.com/martinbudden/Crate-filters" }
-pid-controller = { git = "https://github.com/martinbudden/Crate-pid_controller" }
-motor-mixers = { git = "https://github.com/martinbudden/Crate-motor_mixers" }
+vector-quaternion-matrix = { git = "https://github.com/martinbudden/crate-vector-quaternion-matrix" }
+imu-sensors = { git = "https://github.com/martinbudden/crate-imu-sensors" }
+sensor-fusion = { git = "https://github.com/martinbudden/crate-sensor-fusion" }
+filters = { git = "https://github.com/martinbudden/crate-filters" }
+pid-controller = { git = "https://github.com/martinbudden/crate-pid-controller" }
+motor-mixers = { git = "https://github.com/martinbudden/crate-motor-mixers" }
 
 # For easy flash access on the RP2040
 embedded-storage = "0.3"
